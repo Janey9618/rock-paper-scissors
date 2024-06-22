@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock-Paper-Scissors Game Using DOM</title>
+</head>
+
+<style>
+
+    body{
+        font-family: 'Quicksand', sans-serif;
+        margin: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgb(80, 0, 27);
+
+        height: 100vh;
+        justify-content: space-between;
+        padding: 20px 0;
+    }
+    .exitButton {
+          background-color: #FF69B4;
+          color: #FFFFFF;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 10px;
+          cursor: pointer;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .exitButton::before {
+          font-family: FontAwesome;
+          content: "\f00d";
+          margin-right: 10px;
+        }
+        
+        .exitButton:hover {
+          background-color: #FFC0CB;
+          color: #000000;
+        }
+    h1{
+        font-family: 'Arial';
+        font-size: 4.5rem;
+        color: rgb(150, 124, 130);
+        margin-top: 50px;
+    }
+    .choices{
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+    .choices button{
+        font-size: 7.5rem;
+        min-width: 140px;
+        margin: 10px;
+        border-radius: 50%;
+        background-color: white;
+        cursor: pointer;
+        transition: background-color 0.5s ease;
+        border: none;
+    }
+    .choices button:hover{
+        background-color: rgb(116, 21, 49);
+    }
+    #playerDisplay, #computerDisplay{
+        font-size: 2.5rem;
+        margin: 20px 0;
+    }
+    #resultDisplay{
+        font-size: 4rem;
+        margin: 20px 0;
+    }
+    .scoreDisplay{
+        font-size: 2rem;
+        margin: 20px 0;
+    }
+    .greenText, #playerScoreDisplay{
+        color: rgb(150, 124, 130);
+    }
+    .redText, #computerScoreDisplay{
+        color: rgb(150, 124, 130);
+    }
+
+</style>
+
+<body>
+
+    <h1>ROCK, PAPER, SCISSOR GAME</h1>
+
+    <div class="choices">
+  
+        <button onclick="playGame('ROCK')"> <img src="C:\Users\GOD IS GOOD\Music\Janey\Practice Code\finaL\Bato.png" alt="Rock" class="image"></button>
+        <button onclick="playGame('PAPER')"><img src="C:\Users\GOD IS GOOD\Music\Janey\Practice Code\finaL\Papel.png" alt="Paper" class="image"></button>
+        <button onclick="playGame('SCISSOR')"><img src="C:\Users\GOD IS GOOD\Music\Janey\Practice Code\finaL\Gunting.png" alt="Scissors" class="image"></button>
+  
+    </div>
+
+    <div id="playerDisplay">PLAYER:</div>
+    <div id="computerDisplay">COMPUTER:</div>
+    <div id="resultDisplay">RESULT:</div>
+
+    <div class="scoreDisplay">Player Score:
+        <span id="playerScoreDisplay">0</span>
+    </div>
+
+    <div class="scoreDisplay">Computer Score:
+        <span id="computerScoreDisplay">0</span>
+    </div>
+
+
+    <script>
+        const choices = ["ROCK", "PAPER", "SCISSOR"];
+        const playerDisplay = document.getElementById("playerDisplay");
+        const computerDisplay = document.getElementById("computerDisplay");
+        const resultDisplay = document.getElementById("resultDisplay");
+        const playerScoreDisplay = document.getElementById("playerScoreDisplay");
+        const computerScoreDisplay = document.getElementById("computerScoreDisplay");
+        let playerScore = 0;
+        let computerScore = 0;
+        
+
+        function playGame(playerChoice){
+
+            const computerChoice = choices[Math.floor(Math.random() * 3)];
+            let result = "";
+
+            if(playerChoice === computerChoice){
+                result = "IT'S A TIE! "
+            }
+            else{
+                switch(playerChoice){
+                    case "ROCK":
+                        result = (computerChoice === "SCISSOR") ? "YOU WIN! " : "YOU LOSE! ";
+                        break;
+                    case "PAPER":
+                        result = (computerChoice === "ROCK") ? "YOU WIN!" : "YOU LOSE! ";
+                        break;
+                    case "SCISSOR":
+                        result = (computerChoice === "PAPER") ? "YOU WIN! " : "YOU LOSE! ";
+                        break;
+                }
+            }
+
+            playerDisplay.textContent = `PLAYER: ${playerChoice}`;
+            computerDisplay.textContent = `COMPUTER: ${computerChoice}`;
+            resultDisplay.textContent = result;
+
+            resultDisplay.classList.remove("greenText", "redText");
+
+            switch(result){
+                case "YOU WIN! ":
+                    resultDisplay.classList.add("greenText");
+                    playerScore++;
+                    playerScoreDisplay.textContent = playerScore;
+                    break;
+                case "YOU LOSE! ":
+                    resultDisplay.classList.add("redText");
+                    computerScore++;
+                    computerScoreDisplay.textContent = computerScore;
+                    break;
+            }
+        }
+
+        function exitGame(){
+            if (confirm("Are you sure you want to exit the game?")) {
+                window.location.reload();
+            }
+        }
+
+    </script>
+    <body>
+
+        <button class="exitButton" onclick="exitGame()">Exit Game</button>
+    
+    </body>
+</body>
+</html>
